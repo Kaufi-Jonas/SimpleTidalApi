@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TidalLib.Helpers;
+using TidalLib.Model;
 
 namespace TidalLib
 {
@@ -94,14 +95,14 @@ namespace TidalLib
         {
             string types = eType.AsString(EnumFormat.Description);
 
-            Dictionary<string, string> data = new Dictionary<string, string>()
+            Dictionary<string, string> queryParams = new Dictionary<string, string>()
             {
                 { "query", searchText },
                 { "offset", "0" },
                 { "types", types },
                 { "limit", limit.ToString()},
             };
-            (string msg, string res) = await Request(key, "search", data);
+            (string msg, string res) = await Request(key, "search", queryParams);
             if (!string.IsNullOrWhiteSpace(msg) || string.IsNullOrWhiteSpace(res))
                 return (msg, null);
 

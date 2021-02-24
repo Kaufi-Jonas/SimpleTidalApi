@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace TidalLib
+namespace TidalLib.Model
 {
     public enum AudioQuality
     {

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using TidalLib.Helpers;
+﻿using System.Collections.Generic;
 
-namespace TidalLib
+namespace TidalLib.Model
 {
     internal static class Tools
     {
