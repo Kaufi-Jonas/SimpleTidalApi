@@ -8,43 +8,41 @@ using TidalLib.Helpers;
 
 namespace TidalLib
 {
-    public class TidalClient
+    public static class TidalClient
     {
         private const string BASE_URL = "https://api.tidalhifi.com/v1/";
 
-        private LoginKey LoginKey;
-
-        public TidalClient()
-        {
-            RefreshAccessTokenFromTidalDesktop();
-        }
-
-        private async Task<(string, string)> Request(string path, Dictionary<string, string> queryParams, int retry = 3)
+        private static async Task<(string, string)> Request(LoginKey key, string path, Dictionary<string, string> queryParams)
         {
             if (queryParams == null)
                 queryParams = new Dictionary<string, string>();
 
-            queryParams["countryCode"] = LoginKey.CountryCode;
+            queryParams["countryCode"] = key.CountryCode;
             var url = HttpHelper.BuildQueryString(new Uri(BASE_URL + path), queryParams);
 
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("X-Tidal-SessionId", LoginKey.SessionID.ToString());
-                if (!string.IsNullOrWhiteSpace(LoginKey.AccessToken))
-                    client.DefaultRequestHeaders.Add("authorization", $"Bearer { LoginKey.AccessToken}");
+                client.DefaultRequestHeaders.Add("X-Tidal-SessionId", key.SessionID.ToString());
+                if (!string.IsNullOrWhiteSpace(key.AccessToken))
+                    client.DefaultRequestHeaders.Add("authorization", $"Bearer { key.AccessToken}");
 
-                var response = await client.GetAsync(url);
-
-                if (!response.IsSuccessStatusCode)
+                try
                 {
-                    return (response.ReasonPhrase, null);
-                }
+                    var response = await client.GetAsync(url);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return (response.ReasonPhrase, null);
+                    }
 
-                return (null, await response.Content.ReadAsStringAsync());
+                    return (null, await response.Content.ReadAsStringAsync());
+                } catch (HttpRequestException e)
+                {
+                    return ($"Exception while sending HTTP GET-Request: {e}", null);
+                }
             }
         }
 
-        public void RefreshAccessTokenFromTidalDesktop()
+        public static (string, LoginKey) GetAccessTokenFromTidalDesktop()
         {
             var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var path = appData + "\\TIDAL\\Logs\\app.log";
@@ -56,22 +54,22 @@ namespace TidalLib
             }
             catch (Exception e)
             {
-                throw new Exception($"Can't read TIDAL desktop log file. Exception: {e}");
+                return ($"Can't read TIDAL desktop log file. Exception: {e}", null);
             }
 
             // find json representation of key
             var sliceStart = content.LastIndexOf("[info] - Session was changed");
             if (sliceStart == -1)
-                throw new Exception("Could not find: '[info] - Session was changed'");
+                return ("Could not find: '[info] - Session was changed'", null);
             content = content.Slice(sliceStart);
 
             sliceStart = content.IndexOf('{');
             var sliceEnd = content.IndexOf("}");
             if (sliceStart == -1 || sliceEnd == -1)
-                throw new Exception("Could not find opening or closing bracket of the login key's JSON representation");
+                return ("Could not find opening or closing bracket of the login key's JSON representation", null);
             sliceEnd += 1 + content.Slice(sliceEnd + 1).IndexOf("}"); // find second closing bracket, as this is the correct one
             if (sliceEnd == -1)
-                throw new Exception("Could not find closing bracket of the login key's JSON representation");
+                return ("Could not find closing bracket of the login key's JSON representation", null);
             content = content[sliceStart..(sliceEnd + 1)];
 
 
@@ -80,19 +78,19 @@ namespace TidalLib
 
             key.AccessToken = json.GetProperty("oAuthAccessToken").GetString();
             if (string.IsNullOrWhiteSpace(key.AccessToken))
-                throw new Exception("oAuthAccessToken was blank");
+                return ("oAuthAccessToken was blank", null);
             key.RefreshToken = json.GetProperty("oAuthRefreshToken").GetString();
             if (string.IsNullOrWhiteSpace(key.RefreshToken))
-                throw new Exception("oAuthRefreshToken was blank");
+                return ("oAuthRefreshToken was blank", null);
             key.UserID = json.GetProperty("userId").GetInt64();
             key.CountryCode = json.GetProperty("countryCode").GetString();
             if (string.IsNullOrWhiteSpace(key.CountryCode))
-                throw new Exception("countryCode was blank");
+                return ("countryCode was blank", null);
 
-            LoginKey = key;
+            return (null, key);
         }
 
-        public async Task<(string, SearchResult)> Search(string searchText, int limit = 10, QueryFilter eType = QueryFilter.ALL)
+        public static async Task<(string, SearchResult)> Search(LoginKey key, string searchText, int limit = 10, QueryFilter eType = QueryFilter.ALL)
         {
             string types = eType.AsString(EnumFormat.Description);
 
@@ -103,7 +101,7 @@ namespace TidalLib
                 { "types", types },
                 { "limit", limit.ToString()},
             };
-            (string msg, string res) = await Request("search", data);
+            (string msg, string res) = await Request(key, "search", data);
             if (!string.IsNullOrWhiteSpace(msg) || string.IsNullOrWhiteSpace(res))
                 return (msg, null);
 

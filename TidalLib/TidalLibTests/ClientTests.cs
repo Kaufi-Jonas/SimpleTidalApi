@@ -10,8 +10,9 @@ namespace TidalLibTests
         [TestMethod]
         public async Task SimpleSearch()
         {
-            var client = new TidalClient();
-            var song = await client.Search("Mombasa - Hans Zimmer");
+            var key = TidalClient.GetAccessTokenFromTidalDesktop();
+            Assert.IsNotNull(key.Item2);
+            var song = await TidalClient.Search(key.Item2, "Mombasa - Hans Zimmer");
             Assert.IsNull(song.Item1);
             Assert.IsTrue(!string.IsNullOrWhiteSpace(song.Item2.Tracks[0].Url));
         }
