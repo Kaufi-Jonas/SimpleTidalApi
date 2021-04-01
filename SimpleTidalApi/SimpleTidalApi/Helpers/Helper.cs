@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace TidalLib.Helpers
+namespace SimpleTidalApi.Helpers
 {
     public static class Helper
     {

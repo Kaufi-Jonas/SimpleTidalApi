@@ -1,6 +1,10 @@
-﻿using System.ComponentModel;
+﻿// The following code has originally been published by Yaronzz under MIT License
+// https://github.com/yaronzz/TidalLib
+// File has been modified
 
-namespace TidalLib.Model
+using System.ComponentModel;
+
+namespace SimpleTidalApi.Model
 {
     public enum AudioQuality
     {

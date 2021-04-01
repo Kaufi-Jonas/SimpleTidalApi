@@ -1,13 +1,18 @@
-﻿using EnumsNET;
+﻿// The following code has originally been published by Yaronzz under MIT License
+// https://github.com/yaronzz/TidalLib
+// File has been modified
+
+
+using EnumsNET;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TidalLib.Helpers;
-using TidalLib.Model;
+using SimpleTidalApi.Helpers;
+using SimpleTidalApi.Model;
 
-namespace TidalLib
+namespace SimpleTidalApi
 {
     public static class TidalClient
     {

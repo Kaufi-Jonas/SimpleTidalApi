@@ -1,6 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// The following code has originally been published by Yaronzz under MIT License
+// https://github.com/yaronzz/TidalLib
+// File has been modified
 
-namespace TidalLib.Model
+
+
+using System.Collections.Generic;
+
+namespace SimpleTidalApi.Model
 {
     internal static class Tools
     {

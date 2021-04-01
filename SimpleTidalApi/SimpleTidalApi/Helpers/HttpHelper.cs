@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace TidalLib.Helpers
+namespace SimpleTidalApi.Helpers
 {
     public static class HttpHelper
     {

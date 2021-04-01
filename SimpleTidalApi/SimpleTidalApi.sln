@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TidalLib", "TidalLib\TidalLib.csproj", "{70C861F7-9207-42CB-99AC-3508641B9F91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTidalApi", "SimpleTidalApi\SimpleTidalApi.csproj", "{70C861F7-9207-42CB-99AC-3508641B9F91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TidalLibTests", "TidalLibTests\TidalLibTests.csproj", "{EFF1C4D7-0D66-4C6F-A58D-0671659112B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTidalApiTests", "SimpleTidalApiTests\SimpleTidalApiTests.csproj", "{EFF1C4D7-0D66-4C6F-A58D-0671659112B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

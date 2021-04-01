@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
-using TidalLib;
+using SimpleTidalApi;
 
-namespace TidalLibTests
+namespace SimpleTidalApiTests
 {
     [TestClass]
     public class ClientTests

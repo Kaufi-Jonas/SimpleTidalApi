@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TidalLib\TidalLib.csproj" />
+    <ProjectReference Include="..\SimpleTidalApi\SimpleTidalApi.csproj" />
   </ItemGroup>
 
 </Project>

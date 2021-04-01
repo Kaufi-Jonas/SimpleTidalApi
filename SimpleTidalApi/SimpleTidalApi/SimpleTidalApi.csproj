@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <OutputType>Library</OutputType>
+    <Description>Unofficial, simple C# API for TIDAL music streaming service.</Description>
+    <Authors>Jonas Kaufmann</Authors>
+    <AssemblyName>SimpleTidalApi</AssemblyName>
+    <RootNamespace>SimpleTidalApi</RootNamespace>
+    <PackageProjectUrl>https://github.com/Kaufi-Jonas/SimpleTidalApi</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Kaufi-Jonas/SimpleTidalApi</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Copyright>Copyright © Jonas Kaufmann 2021</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Enums.NET" Version="4.0.0" />
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
