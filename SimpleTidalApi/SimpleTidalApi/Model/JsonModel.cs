@@ -10,11 +10,11 @@ namespace SimpleTidalApi.Model
 {
     internal static class Tools
     {
-        public static string GetCoverUrl(string sID, string iWidth = "320", string iHeight = "320")
+        public static string GetCoverUrl(string sID, int resolution = 320)
         {
             if (sID == null)
                 return null;
-            return string.Format("https://resources.tidal.com/images/{0}/{1}x{2}.jpg", sID.Replace('-', '/'), iWidth, iHeight);
+            return string.Format("https://resources.tidal.com/images/{0}/{1}x{2}.jpg", sID.Replace('-', '/'), resolution, resolution);
         }
 
         public static string[] GetArtistsList(List<Artist> Artists)
@@ -130,8 +130,9 @@ namespace SimpleTidalApi.Model
         public Artist Artist { get; set; }
         public string[] AudioModes { get; set; }
 
-        public string CoverUrl { get { return Tools.GetCoverUrl(Cover); } }
-        public string CoverHighUrl { get { return Tools.GetCoverUrl(Cover, "1280", "1280"); } }
+        public string CoverLowUrl { get { return Tools.GetCoverUrl(Cover); } }
+        public string CoverMidUrl { get { return Tools.GetCoverUrl(Cover, 640); } }
+        public string CoverHighUrl { get { return Tools.GetCoverUrl(Cover, 1280); } }
         public string ArtistsName { get { return Tools.GetArtists(Artists); } }
         public string Flag { get { return Tools.GetFlag(this, QueryFilter.ALBUM, false); } }
         public string FlagShort { get { return Tools.GetFlag(this, QueryFilter.ALBUM, true); } }
@@ -152,7 +153,7 @@ namespace SimpleTidalApi.Model
         public string[] ArtistTypes { get; set; }
 
         public string CoverUrl { get { return Tools.GetCoverUrl(Picture); } }
-        public string CoverHighUrl { get { return Tools.GetCoverUrl(Picture, "750", "750"); } }
+        public string CoverHighUrl { get { return Tools.GetCoverUrl(Picture, 750); } }
 
         public List<Album> Albums { get; set; }
     }
@@ -223,7 +224,7 @@ namespace SimpleTidalApi.Model
         public Album Album { get; set; }
 
         public string CoverUrl { get { return Tools.GetCoverUrl(ImageID); } }
-        public string CoverHighUrl { get { return Tools.GetCoverUrl(ImageID, "1280", "1280"); } }
+        public string CoverHighUrl { get { return Tools.GetCoverUrl(ImageID, 1280); } }
         public string ArtistsName { get { return Tools.GetArtists(Artists); } }
         public string Flag { get { return Tools.GetFlag(this, QueryFilter.VIDEO, false); } }
         public string FlagShort { get { return Tools.GetFlag(this, QueryFilter.VIDEO, true); } }
@@ -249,7 +250,7 @@ namespace SimpleTidalApi.Model
         public int Popularity { get; set; }
 
         public string CoverUrl { get { return Tools.GetCoverUrl(SquareImage); } }
-        public string CoverHighUrl { get { return Tools.GetCoverUrl(SquareImage, "1080", "1080"); } }
+        public string CoverHighUrl { get { return Tools.GetCoverUrl(SquareImage, 1080); } }
 
         public List<Track> Tracks { get; set; }
         public List<Video> Videos { get; set; }

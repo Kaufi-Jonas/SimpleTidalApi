@@ -1,0 +1,11 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.SimpleTidalApi.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../../../:\Users\jonask\Dropbox\Programmieren\SimpleTidalApi\SimpleTidalApi\.idea\.idea.SimpleTidalApi\.idea/dataSources/
+/dataSources.local.xml
